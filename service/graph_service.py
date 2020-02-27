@@ -79,9 +79,10 @@ class GraphService:
             return Graph.select().filter(Graph.data_key == data_key).one().id
 
     @classmethod
-    def delete(cls, id):
+    def delete(cls, user_name, id):
         graph = Graph.select().get(id)
         assert graph is not None
+        assert graph.user_name == user_name
         assert QiniuService.delete_file(bucket_name=config.QI_NIU.get('doc_bucket_name'), file_name=graph.data_key)
         assert QiniuService.delete_file(bucket_name=config.QI_NIU.get('img_bucket_name'), file_name=graph.img_key)
         graph.delete()

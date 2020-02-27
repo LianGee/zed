@@ -38,6 +38,7 @@ def save():
 
 
 @graph_bp.route('/query', methods=['GET'])
+@login_required
 def query():
     id = request.args.get('id')
     assert id is not None
@@ -45,6 +46,7 @@ def query():
 
 
 @graph_bp.route('/list', methods=['POST'])
+@login_required
 def graph_list():
     type = request.json.get('type')
     is_published = request.json.get('isPublished')
@@ -54,10 +56,11 @@ def graph_list():
 
 
 @graph_bp.route('/delete', methods=['DELETE'])
+@login_required
 def delete_graph():
     id = request.args.get('id')
     assert id is not None
-    return Response.success(GraphService.delete(id))
+    return Response.success(GraphService.delete(g.user.name, id))
 
 
 @graph_bp.route('/create/album', methods=['POST'])
