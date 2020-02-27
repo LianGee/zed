@@ -50,7 +50,7 @@ def graph_list():
     is_published = request.json.get('isPublished')
     assert type is not None
     assert is_published is not None
-    return Response.success(GraphService.graph_list(type, is_published))
+    return Response.success(GraphService.graph_list(g.user.name, type, is_published))
 
 
 @graph_bp.route('/delete', methods=['DELETE'])

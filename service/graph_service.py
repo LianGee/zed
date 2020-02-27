@@ -97,12 +97,13 @@ class GraphService:
         return result
 
     @classmethod
-    def graph_list(cls, type, is_published=True):
+    def graph_list(cls, user_name, type, is_published=True):
         if is_published:
             graphs = Graph.select().filter(Graph.type == type, Graph.is_published).order_by(
                 Graph.created_at.desc()).all()
         else:
-            graphs = Graph.select().filter(Graph.type == type).order_by(Graph.created_at.desc()).all()
+            graphs = Graph.select().filter(Graph.type == type, Graph.user_name == user_name).order_by(
+                Graph.created_at.desc()).all()
         return [graph.get_json() for graph in graphs]
 
     @classmethod

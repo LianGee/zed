@@ -64,7 +64,7 @@ class ArticleService:
         if is_published:
             articles = Article.select().filter(Article.is_published).order_by(Article.updated_at.desc()).all()
         else:
-            articles = Article.select().order_by(Article.updated_at.desc()).all()
+            articles = Article.select().filter(Article.user_name == user_name).order_by(Article.updated_at.desc()).all()
         results = []
         for article in articles:
             data = article.get_json()
