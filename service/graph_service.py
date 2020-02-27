@@ -132,7 +132,7 @@ class GraphService:
     def album_list(cls, user_name, is_public=True):
         if is_public:
             return Album.select().filter(Album.user_name == user_name, Album.is_public).all()
-        return Album.select().filter(Album.user_name == user_name).all()
+        return Album.select().filter(Album.is_public).all()
 
     @classmethod
     def upload_image(cls, user_name, album_id, file):
