@@ -59,7 +59,7 @@ class BaseModel:
         try:
             session.add(self)
             session.commit()
-        except Exception:
+        except Exception as e:
             session.rollback()
         finally:
             session.close()

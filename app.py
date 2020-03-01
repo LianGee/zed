@@ -7,6 +7,7 @@ import config
 from common.log import Logger
 from common.response import Response
 from model.db import clean_db_session
+from view.album import album_bp
 from view.article import article_bp
 from view.catalogue import catalogue_bp
 from view.graph import graph_bp
@@ -24,6 +25,7 @@ app.register_blueprint(article_bp, url_prefix='/article')
 app.register_blueprint(graph_bp, url_prefix='/graph')
 app.register_blueprint(tag_bp, url_prefix='/tag')
 app.register_blueprint(catalogue_bp, url_prefix='/catalogue')
+app.register_blueprint(album_bp, url_prefix='/album')
 
 
 @app.route('/')

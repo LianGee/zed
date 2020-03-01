@@ -63,32 +63,6 @@ def delete_graph():
     return Response.success(GraphService.delete(g.user.name, id))
 
 
-@graph_bp.route('/create/album', methods=['POST'])
-@login_required
-def create_album():
-    user_name = g.user.name
-    id = request.json.get('id')
-    title = request.json.get('name')
-    description = request.json.get('description')
-    cover_url = request.json.get('cover_url')
-    assert user_name is not None
-    return Response.success(GraphService.create_album(
-        user_name=user_name,
-        id=id,
-        title=title,
-        description=description,
-        cover_url=cover_url
-    ))
-
-
-@graph_bp.route('/album/list', methods=['GET'])
-@login_required
-def album_list():
-    user_name = g.user.name
-    is_public = request.args.get('is_public') == 'true'
-    return Response.success(GraphService.album_list(user_name, is_public))
-
-
 @graph_bp.route('/album/upload/image', methods=['POST'])
 @login_required
 def upload_image():
@@ -113,27 +87,3 @@ def image_list():
 def delete_image():
     id = request.args.get('id')
     return Response.success(GraphService.delete_image(g.user.name, id))
-
-
-@graph_bp.route('/publish', methods=['POST'])
-@login_required
-def publish_graph():
-    id = request.json.get('id')
-    assert id is not None
-    return Response.success(GraphService.publish(id))
-
-
-@graph_bp.route('/album/public', methods=['POST'])
-@login_required
-def public_album():
-    id = request.json.get('id')
-    assert id is not None
-    return Response.success(GraphService.public_album(id))
-
-
-@graph_bp.route('/album/delete', methods=['DELETE'])
-@login_required
-def delete_album():
-    id = request.args.get('id')
-    assert id is not None
-    return Response.success(GraphService.delete_album(id))

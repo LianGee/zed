@@ -48,6 +48,7 @@ def current():
 
 
 @user_bp.route('/all', methods=['GET'])
+@login_required
 def query_all():
     users = User.select().all()
     return Response.success(users)
@@ -64,3 +65,19 @@ def get_user_authority():
     else:
         authorities.append('user')
     return Response.success(authorities)
+
+
+@user_bp.route('/get/info')
+@login_required
+def get_user_info():
+    user_name = request.args.get('user_name')
+    assert user_name is not None
+    return Response.success(UserService.get_user_info(user_name))
+
+
+@user_bp.route('/logout')
+@login_required
+def logout():
+    session.pop('user')
+    g.user = None
+    return Response.success(True)

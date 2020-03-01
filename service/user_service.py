@@ -37,3 +37,9 @@ class UserService:
     def user_tag(cls, user_name):
         tags = Tag.select().filter(Tag.user_name == user_name).all()
         return [tag.get_json() for tag in tags]
+
+    @classmethod
+    def get_user_info(cls, user_name):
+        user = User.select().filter(User.name == user_name).first()
+        assert user is not None
+        return user

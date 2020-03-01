@@ -13,6 +13,7 @@ from common.exception import ServerException
 from model.album import Album
 from model.graph import Graph
 from model.image import Image
+from model.user import User
 from service.qiniu_service import QiniuService
 
 
@@ -108,35 +109,6 @@ class GraphService:
         return [graph.get_json() for graph in graphs]
 
     @classmethod
-    def create_album(cls, user_name, id, title, cover_url, description):
-        if id is not None:
-            album = Album.select().get(id)
-            assert album is not None
-            album.title = title
-            album.cover_url = cover_url
-            album.description = description
-            Album.update(album)
-            return id
-        else:
-            existed = Album.select().filter(Album.title == title, Album.user_name == user_name).first() is not None
-            if existed:
-                raise ServerException(msg='相册已存在')
-            album = Album(
-                title=title,
-                cover_url=cover_url,
-                description=description,
-                user_name=user_name,
-            )
-            album.insert()
-        return Album.select().filter(Album.title == title, Album.user_name == user_name).one().id
-
-    @classmethod
-    def album_list(cls, user_name, is_public=True):
-        if is_public:
-            return Album.select().filter(Album.is_public).all()
-        return Album.select().filter(Album.user_name == user_name).all()
-
-    @classmethod
     def upload_image(cls, user_name, album_id, file):
         img = file.read()
         file_name = md5(img.decode('ISO-8859-1'))
@@ -174,31 +146,4 @@ class GraphService:
         if not delete_status:
             raise ServerException('删除图片失败')
         image.delete()
-        return True
-
-    @classmethod
-    def publish(cls, id):
-        graph = Graph.select().get(id)
-        assert graph is not None
-        graph.is_published = not graph.is_published
-        graph.update()
-        return True
-
-    @classmethod
-    def public_album(cls, id):
-        album = Album.select().get(id)
-        assert album is not None
-        album.is_public = not album.is_public
-        album.update()
-        return True
-
-    @classmethod
-    def delete_album(cls, id):
-        album = Album.select().get(id)
-        assert album is not None
-        images = Image.select().filter(Image.album_id == id).all()
-        for image in images:
-            QiniuService.delete_file(config.QI_NIU.get('img_bucket_name'), image.key)
-            image.delete()
-        album.delete()
         return True

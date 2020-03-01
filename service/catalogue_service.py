@@ -27,16 +27,15 @@ class CatalogueService:
             catalogue.name = name
             catalogue.index = index
             catalogue.update()
+            return id
         else:
             catalogue = Catalogue(
                 name=name,
-                index=0
+                index=1,
+                user_name=user_name
             )
-            if index == 0:
-                max_index = Catalogue.select(func.max(Catalogue.index)) \
-                    .filter(Catalogue.user_name == user_name).one()[0]
-                catalogue.index = max_index + 1
             catalogue.insert()
+            return catalogue.id
 
     @classmethod
     def delete(cls, catalogue_id):
