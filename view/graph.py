@@ -63,17 +63,6 @@ def delete_graph():
     return Response.success(GraphService.delete(g.user.name, id))
 
 
-@graph_bp.route('/album/upload/image', methods=['POST'])
-@login_required
-def upload_image():
-    files = request.files
-    file = files.get('file')
-    album_id = request.form.get('album_id')
-    assert album_id is not None
-    assert file is not None
-    return Response.success(GraphService.upload_image(g.user.name, album_id, file))
-
-
 @graph_bp.route('/image/list', methods=['GET'])
 @login_required
 def image_list():

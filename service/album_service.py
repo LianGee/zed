@@ -7,6 +7,7 @@
 import math
 
 import config
+from common.enc_util import md5
 from common.exception import ServerException
 from common.log import Logger
 from model.album import Album
@@ -109,3 +110,27 @@ class AlbumService:
             )
             album.insert()
         return Album.select().filter(Album.title == title, Album.user_name == user_name).one().id
+
+    @classmethod
+    def upload_image(cls, user_name, album_id, file):
+        img = file.read()
+        file_name = md5(img.decode('ISO-8859-1'))
+        image = Image.select().filter(Image.user_name == user_name, Image.key == file_name).first()
+        if image is not None:
+            raise ServerException('图片已存在')
+        url = QiniuService.upload_img(img, file_name=file_name)
+        img_info = QiniuService.get_img_info(url)
+        assert img_info is not None
+        image = Image(
+            album_id=album_id,
+            user_name=user_name,
+            key=file_name,
+            url=url,
+            width=img_info.get('width'),
+            height=img_info.get('height'),
+            size=img_info.get('size'),
+            format=img_info.get('format'),
+            color_model=img_info.get('colorModel')
+        )
+        image.insert()
+        return Image.select().filter(Image.key == file_name).one()

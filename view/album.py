@@ -9,7 +9,6 @@ from flask import Blueprint, request, g
 from common.login import login_required
 from common.response import Response
 from service.album_service import AlbumService
-from service.graph_service import GraphService
 
 album_bp = Blueprint('album', __name__)
 
@@ -54,3 +53,14 @@ def save():
         description=description,
         cover_url=cover_url
     ))
+
+
+@album_bp.route('/album/upload/image', methods=['POST'])
+@login_required
+def upload_image():
+    files = request.files
+    file = files.get('file')
+    album_id = request.form.get('album_id')
+    assert album_id is not None
+    assert file is not None
+    return Response.success(AlbumService.upload_image(g.user.name, album_id, file))
