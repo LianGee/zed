@@ -6,6 +6,7 @@
 # @Desc  :
 from flask import Blueprint, request, g
 
+from common.loged import log_this
 from common.login import login_required
 from common.response import Response
 from service.graph_service import GraphService
@@ -15,6 +16,7 @@ graph_bp = Blueprint('graph', __name__)
 
 @graph_bp.route('/share/img', methods=['GET'])
 @login_required
+@log_this
 def share_img():
     id = request.args.get('id')
     user_name = g.user.name
@@ -24,6 +26,7 @@ def share_img():
 
 @graph_bp.route('/save', methods=['POST'])
 @login_required
+@log_this
 def save():
     user_name = g.user.name
     id = request.json.get('id')
@@ -47,6 +50,7 @@ def query():
 
 @graph_bp.route('/list', methods=['POST'])
 @login_required
+@log_this
 def graph_list():
     type = request.json.get('type')
     is_published = request.json.get('isPublished')
@@ -57,6 +61,7 @@ def graph_list():
 
 @graph_bp.route('/delete', methods=['DELETE'])
 @login_required
+@log_this
 def delete_graph():
     id = request.args.get('id')
     assert id is not None

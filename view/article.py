@@ -7,6 +7,7 @@
 
 from flask import Blueprint, request, g
 
+from common.loged import log_this
 from common.login import login_required
 from common.response import Response
 from service.article_service import ArticleService
@@ -17,6 +18,7 @@ article_bp = Blueprint('article', __name__)
 
 @article_bp.route('/upload/img', methods=['POST'])
 @login_required
+@log_this
 def upload_img():
     files = request.files
     file = files.get('file')
@@ -41,6 +43,7 @@ def upload_doc():
 
 @article_bp.route('/list', methods=['GET'])
 @login_required
+@log_this
 def article_list():
     is_published = request.args.get('is_published') == 'true'
     return Response.success(ArticleService.article_list(g.user.name, is_published))
@@ -48,6 +51,7 @@ def article_list():
 
 @article_bp.route('/detail', methods=['GET'])
 @login_required
+@log_this
 def article_detail():
     id = request.args.get('id')
     assert id is not None

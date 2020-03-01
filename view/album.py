@@ -6,6 +6,7 @@
 # @Desc  :
 from flask import Blueprint, request, g
 
+from common.loged import log_this
 from common.login import login_required
 from common.response import Response
 from service.album_service import AlbumService
@@ -15,6 +16,7 @@ album_bp = Blueprint('album', __name__)
 
 @album_bp.route('/list', methods=['GET'])
 @login_required
+@log_this
 def get_album_list():
     user_name = g.user.name
     is_public = request.args.get('is_public') == 'true'
@@ -23,6 +25,7 @@ def get_album_list():
 
 @album_bp.route('/img/list', methods=['GET'])
 @login_required
+@log_this
 def get_img_list():
     album_id = request.args.get('album_id')
     user_name = g.user.name
@@ -31,6 +34,7 @@ def get_img_list():
 
 @album_bp.route('/public', methods=['POST'])
 @login_required
+@log_this
 def public_album():
     id = request.json.get('id')
     assert id is not None
@@ -39,6 +43,7 @@ def public_album():
 
 @album_bp.route('/save', methods=['POST'])
 @login_required
+@log_this
 def save():
     user_name = g.user.name
     id = request.json.get('id')
@@ -57,6 +62,7 @@ def save():
 
 @album_bp.route('/album/upload/image', methods=['POST'])
 @login_required
+@log_this
 def upload_image():
     files = request.files
     file = files.get('file')

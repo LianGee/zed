@@ -9,6 +9,7 @@ import json
 from flask import Blueprint, request, session, g
 
 from common.log import Logger
+from common.loged import log_this
 from common.login import login_required
 from common.response import Response
 from model.user import User
@@ -19,6 +20,7 @@ log = Logger(__name__)
 
 
 @user_bp.route('/login', methods=['POST'])
+@log_this
 def login():
     args = request.json
     name = args.get('userName')
@@ -29,6 +31,7 @@ def login():
 
 
 @user_bp.route('/register', methods=['POST'])
+@log_this
 def register():
     args = request.json
     user = User(
@@ -41,6 +44,7 @@ def register():
 
 @user_bp.route('/current', methods=['GET'])
 @login_required
+@log_this
 def current():
     user = g.user.get_json()
     user['tags'] = UserService.user_tag(user_name=g.user.name)
@@ -55,6 +59,7 @@ def query_all():
 
 
 @user_bp.route('/get/authority')
+@log_this
 def get_user_authority():
     authorities = []
     user = session.get('user')
@@ -69,6 +74,7 @@ def get_user_authority():
 
 @user_bp.route('/get/info')
 @login_required
+@log_this
 def get_user_info():
     user_name = request.args.get('user_name')
     assert user_name is not None
@@ -77,6 +83,7 @@ def get_user_info():
 
 @user_bp.route('/logout')
 @login_required
+@log_this
 def logout():
     session.pop('user')
     g.user = None
