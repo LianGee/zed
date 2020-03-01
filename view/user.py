@@ -87,4 +87,4 @@ def get_user_info():
 def logout():
     session.pop('user')
     g.user = None
-    return Response.success(True)
+    return Response.success(status='error', data=True)

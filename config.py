@@ -7,8 +7,10 @@
 
 import os
 
+from redis import Redis
+
 APP_NAME = 'zed'
-SECRET_KEY = 'XKCWJC6KN99GRZPOYDJTALF45WG3RNQ9'
+SECRET_KEY = os.urandom(24)
 JSONIFY_PRETTYPRINT_REGULAR = True
 JSON_AS_ASCII = False
 DEBUG = True
@@ -31,7 +33,14 @@ DB_KWARGS = {
 DATABASES = {
     "default": DEFAULT_DATABASE_URL,
 }
-
+SESSION_TYPE = 'redis'
+SESSION_REDIS = Redis(
+    host='127.0.0.1',
+    port=6379
+)
+SESSION_USE_SIGNER = True
+SESSION_PERMANENT = False
+PERMANENT_SESSION_LIFETIME = 3600
 QI_NIU = {
     'access_key': 'qVMkbrZVpr5ZSgcS50ucro1m36zhL9FqqPfjUNgO',
     'secret_key': 'v2fMZffT-gQTTHnm7YFO4lSPnDINYE4EgxSxWaZc',

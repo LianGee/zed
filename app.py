@@ -2,6 +2,7 @@ import traceback
 
 from flask import Flask, request
 from flask_cors import CORS
+from flask_session import Session
 
 import config
 from common.log import Logger
@@ -19,6 +20,7 @@ app = Flask(__name__)
 log = Logger(__name__)
 app.config.from_object(config)
 CORS(app, supports_credentials=True)
+Session(app)
 app.register_blueprint(test_bp, url_prefix='/test')
 app.register_blueprint(user_bp, url_prefix='/user')
 app.register_blueprint(article_bp, url_prefix='/article')

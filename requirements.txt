@@ -6,3 +6,4 @@ Flask==1.0.2
 beautifulsoup4==4.8.2
 qiniu==7.2.6
 flask-script==2.0.6
+flask_session==0.3.1
