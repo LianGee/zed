@@ -1,4 +1,4 @@
-create table album
+create table if not exists zed.album
 (
   id          bigint(11) auto_increment comment '主键'
     primary key,
@@ -14,18 +14,18 @@ create table album
   comment '相册目录' charset = utf8mb4;
 
 create index idx_created_at
-  on album (created_at);
+  on zed.album (created_at);
 
 create index idx_is_delete
-  on album (is_delete);
+  on zed.album (is_delete);
 
 create index idx_updated_at
-  on album (updated_at);
+  on zed.album (updated_at);
 
 create index idx_user_name
-  on album (user_name);
+  on zed.album (user_name);
 
-create table article
+create table if not exists zed.article
 (
   id              bigint(11) auto_increment comment '主键'
     primary key,
@@ -48,27 +48,27 @@ create table article
   comment '文章' charset = utf8mb4;
 
 create index idk_catalogue_id
-  on article (catalogue_id);
+  on zed.article (catalogue_id);
 
 create index idk_file_key
-  on article (file_key);
+  on zed.article (file_key);
 
 create index idk_is_published
-  on article (is_published);
+  on zed.article (is_published);
 
 create index idk_user_name
-  on article (user_name);
+  on zed.article (user_name);
 
 create index idx_created_at
-  on article (created_at);
+  on zed.article (created_at);
 
 create index idx_is_delete
-  on article (is_delete);
+  on zed.article (is_delete);
 
 create index idx_updated_at
-  on article (updated_at);
+  on zed.article (updated_at);
 
-create table catalogue
+create table if not exists zed.catalogue
 (
   id         bigint(11) auto_increment comment '主键'
     primary key,
@@ -82,18 +82,18 @@ create table catalogue
   comment '目录' charset = utf8mb4;
 
 create index idk_user_name
-  on catalogue (user_name);
+  on zed.catalogue (user_name);
 
 create index idx_created_at
-  on catalogue (created_at);
+  on zed.catalogue (created_at);
 
 create index idx_is_delete
-  on catalogue (is_delete);
+  on zed.catalogue (is_delete);
 
 create index idx_updated_at
-  on catalogue (updated_at);
+  on zed.catalogue (updated_at);
 
-create table graph
+create table if not exists zed.graph
 (
   id           bigint(11) auto_increment comment '主键'
     primary key,
@@ -120,30 +120,30 @@ create table graph
   comment '图形' charset = utf8mb4;
 
 create index idk_type
-  on graph (type);
+  on zed.graph (type);
 
 create index idx_created_at
-  on graph (created_at);
+  on zed.graph (created_at);
 
 create index idx_format
-  on graph (format);
+  on zed.graph (format);
 
 create index idx_img_key
-  on graph (img_key);
+  on zed.graph (img_key);
 
 create index idx_is_delete
-  on graph (is_delete);
+  on zed.graph (is_delete);
 
 create index idx_is_published
-  on graph (is_published);
+  on zed.graph (is_published);
 
 create index idx_updated_at
-  on graph (updated_at);
+  on zed.graph (updated_at);
 
 create index idx_user_name
-  on graph (user_name);
+  on zed.graph (user_name);
 
-create table image
+create table if not exists zed.image
 (
   id          bigint(11) auto_increment comment '主键'
     primary key,
@@ -163,24 +163,24 @@ create table image
   comment '图片' charset = utf8mb4;
 
 create index idk_album_id
-  on image (album_id);
+  on zed.image (album_id);
 
 create index idk_user_name
-  on image (user_name);
+  on zed.image (user_name);
 
 create index idx_created_at
-  on image (created_at);
+  on zed.image (created_at);
 
 create index idx_is_delete
-  on image (is_delete);
+  on zed.image (is_delete);
 
 create index idx_key
-  on image (`key`);
+  on zed.image (`key`);
 
 create index idx_updated_at
-  on image (updated_at);
+  on zed.image (updated_at);
 
-create table tag
+create table if not exists zed.tag
 (
   id         bigint(11) auto_increment comment '主键'
     primary key,
@@ -193,21 +193,21 @@ create table tag
   comment '标签' charset = utf8mb4;
 
 create index idx_created_at
-  on tag (created_at);
+  on zed.tag (created_at);
 
 create index idx_is_delete
-  on tag (is_delete);
+  on zed.tag (is_delete);
 
 create index idx_label
-  on tag (label);
+  on zed.tag (label);
 
 create index idx_updated_at
-  on tag (updated_at);
+  on zed.tag (updated_at);
 
 create index idx_user_name
-  on tag (user_name);
+  on zed.tag (user_name);
 
-create table user
+create table if not exists zed.user
 (
   id         bigint(11) auto_increment comment '主键'
     primary key,
@@ -225,15 +225,15 @@ create table user
   comment '用户' charset = utf8mb4;
 
 create index idx_created_at
-  on user (created_at);
+  on zed.user (created_at);
 
 create index idx_is_delete
-  on user (is_delete);
+  on zed.user (is_delete);
 
 create index idx_updated_at
-  on user (updated_at);
+  on zed.user (updated_at);
 
-create table user_like
+create table if not exists zed.user_like
 (
   id         bigint(11) auto_increment comment '主键'
     primary key,
@@ -248,24 +248,24 @@ create table user_like
   comment '用户点赞' charset = utf8mb4;
 
 create index idx_article_id
-  on user_like (article_id);
+  on zed.user_like (article_id);
 
 create index idx_comment_id
-  on user_like (comment_id);
+  on zed.user_like (comment_id);
 
 create index idx_created_at
-  on user_like (created_at);
+  on zed.user_like (created_at);
 
 create index idx_is_delete
-  on user_like (is_delete);
+  on zed.user_like (is_delete);
 
 create index idx_updated_at
-  on user_like (updated_at);
+  on zed.user_like (updated_at);
 
 create index idx_user_name
-  on user_like (user_name);
+  on zed.user_like (user_name);
 
-create table user_view
+create table if not exists zed.user_view
 (
   id         bigint(11) auto_increment comment '主键'
     primary key,
@@ -278,17 +278,107 @@ create table user_view
   comment '用户浏览记录' charset = utf8mb4;
 
 create index idk_article_id
-  on user_view (article_id);
+  on zed.user_view (article_id);
 
 create index idx_created_at
-  on user_view (created_at);
+  on zed.user_view (created_at);
 
 create index idx_is_delete
-  on user_view (is_delete);
+  on zed.user_view (is_delete);
 
 create index idx_updated_at
-  on user_view (updated_at);
+  on zed.user_view (updated_at);
 
 create index idx_user_name
-  on user_view (user_name);
+  on zed.user_view (user_name);
+
+create table if not exists zed.weekly_planner
+(
+  id           bigint(11) auto_increment comment '主键'
+    primary key,
+  user_name    varchar(50)   default '' not null comment '用户名',
+  workspace_id bigint(11)    default 0  not null comment '空间',
+  title        varchar(1024) default '' not null,
+  created_at   bigint(11)               null comment '创建时间',
+  updated_at   bigint(11)               null comment '更新时间',
+  is_delete    tinyint(3)    default 0  null comment '是否删除'
+)
+  comment '星期计划' charset = utf8mb4;
+
+create index idk_workspace_id
+  on zed.weekly_planner (workspace_id);
+
+create index idx_created_at
+  on zed.weekly_planner (created_at);
+
+create index idx_is_delete
+  on zed.weekly_planner (is_delete);
+
+create index idx_updated_at
+  on zed.weekly_planner (updated_at);
+
+create index idx_user_name
+  on zed.weekly_planner (user_name);
+
+create table if not exists zed.weekly_task
+(
+  id         bigint(11) auto_increment comment '主键'
+    primary key,
+  planner_id bigint(11)  default 0  not null,
+  task_index tinyint(3)  default 0  null comment '星期几',
+  user_name  varchar(50) default '' not null comment '用户名',
+  content    text                   null comment '任务内容',
+  status     tinyint(3)  default 0  not null comment '任务状态',
+  start      bigint(11)  default 0  null comment '开始时间',
+  end        bigint(11)  default 0  not null comment '结束时间',
+  created_at bigint(11)             null comment '创建时间',
+  updated_at bigint(11)             null comment '更新时间',
+  is_delete  tinyint(3)  default 0  null comment '是否删除'
+)
+  comment '星期计划' charset = utf8mb4;
+
+create index idk_end
+  on zed.weekly_task (end);
+
+create index idk_start
+  on zed.weekly_task (start);
+
+create index idx_created_at
+  on zed.weekly_task (created_at);
+
+create index idx_is_delete
+  on zed.weekly_task (is_delete);
+
+create index idx_planner_Id
+  on zed.weekly_task (planner_id);
+
+create index idx_updated_at
+  on zed.weekly_task (updated_at);
+
+create index idx_user_name
+  on zed.weekly_task (user_name);
+
+create table if not exists zed.workspace
+(
+  id         bigint(11) auto_increment comment '主键'
+    primary key,
+  user_name  varchar(50)  default '' not null comment '用户名',
+  name       varchar(250) default '' not null comment '空间名',
+  created_at bigint(11)              null comment '创建时间',
+  updated_at bigint(11)              null comment '更新时间',
+  is_delete  tinyint(3)   default 0  null comment '是否删除'
+)
+  comment '工作间' charset = utf8mb4;
+
+create index idx_created_at
+  on zed.workspace (created_at);
+
+create index idx_is_delete
+  on zed.workspace (is_delete);
+
+create index idx_updated_at
+  on zed.workspace (updated_at);
+
+create index idx_user_name
+  on zed.workspace (user_name);
 
