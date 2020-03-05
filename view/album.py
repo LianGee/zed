@@ -60,7 +60,7 @@ def save():
     ))
 
 
-@album_bp.route('/album/upload/image', methods=['POST'])
+@album_bp.route('/upload/image', methods=['POST'])
 @login_required
 @log_this
 def upload_image():
@@ -70,3 +70,11 @@ def upload_image():
     assert album_id is not None
     assert file is not None
     return Response.success(AlbumService.upload_image(g.user.name, album_id, file))
+
+
+@album_bp.route('/delete', methods=['DELETE'])
+@login_required
+@log_this
+def delete():
+    id = request.args.get('id')
+    return Response.success(AlbumService.delete_album(id))

@@ -15,6 +15,8 @@ from view.graph import graph_bp
 from view.tag import tag_bp
 from view.test import test_bp
 from view.user import user_bp
+from view.weekly import weekly_bp
+from view.workspace import workspace_bp
 
 app = Flask(__name__)
 log = Logger(__name__)
@@ -28,6 +30,8 @@ app.register_blueprint(graph_bp, url_prefix='/graph')
 app.register_blueprint(tag_bp, url_prefix='/tag')
 app.register_blueprint(catalogue_bp, url_prefix='/catalogue')
 app.register_blueprint(album_bp, url_prefix='/album')
+app.register_blueprint(workspace_bp, url_prefix='/workspace')
+app.register_blueprint(weekly_bp, url_prefix='/weekly')
 
 
 @app.route('/')
