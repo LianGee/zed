@@ -3,6 +3,7 @@ import traceback
 from flask import Flask, request
 from flask_cors import CORS
 from flask_session import Session
+from flask_sockets import Sockets
 
 import config
 from common.log import Logger
@@ -11,7 +12,9 @@ from model.db import clean_db_session
 from view.album import album_bp
 from view.article import article_bp
 from view.catalogue import catalogue_bp
+from view.game import game_bp
 from view.graph import graph_bp
+from view.socket import socket_bp
 from view.tag import tag_bp
 from view.test import test_bp
 from view.user import user_bp
@@ -23,6 +26,7 @@ log = Logger(__name__)
 app.config.from_object(config)
 CORS(app, supports_credentials=True)
 Session(app)
+sockets = Sockets(app)
 app.register_blueprint(test_bp, url_prefix='/test')
 app.register_blueprint(user_bp, url_prefix='/user')
 app.register_blueprint(article_bp, url_prefix='/article')
@@ -32,6 +36,8 @@ app.register_blueprint(catalogue_bp, url_prefix='/catalogue')
 app.register_blueprint(album_bp, url_prefix='/album')
 app.register_blueprint(workspace_bp, url_prefix='/workspace')
 app.register_blueprint(weekly_bp, url_prefix='/weekly')
+app.register_blueprint(game_bp, url_prefix='/game')
+sockets.register_blueprint(socket_bp, url_prefix='/')
 
 
 @app.route('/')
@@ -65,5 +71,15 @@ def error_handler(exception: Exception):
         return Response.failed(msg=f'{exception}')
 
 
-if __name__ == '__main__':
-    app.run()
+@app.route('/')
+def hello():
+    return 'Hello World!'
+
+#
+# @sockets.route('/echo')
+# def echo_socket(ws):
+#     while not ws.closed:
+#         message = ws.receive()
+#         print(len(ws.handler.server.clients.values()))
+#         for client in ws.handler.server.clients.values():
+#             client.ws.send(message)

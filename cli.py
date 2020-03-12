@@ -45,7 +45,7 @@ def after_run_begin():
 @manager.option(
     '-s', '--socket', default=None,
     help="Path to a UNIX socket as an alternative to address:port, e.g. "
-         "/var/run/faraday.sock. "
+         "/var/run/zed.sock. "
          "Will override the address and port values.")
 def runserver(debug, no_reload, address, port, workers, socket):
     """Starts a Faraday web server."""
@@ -53,7 +53,7 @@ def runserver(debug, no_reload, address, port, workers, socket):
     if debug:
         print(Fore.BLUE + '-=' * 20)
         print(
-            Fore.YELLOW + "Starting Faraday server in " +
+            Fore.YELLOW + "Starting Zed server in " +
             Fore.RED + "DEBUG" +
             Fore.YELLOW + " mode")
         print(Fore.BLUE + '-=' * 20)
@@ -73,9 +73,9 @@ def runserver(debug, no_reload, address, port, workers, socket):
                 "--limit-request-line 0 "
                 "--limit-request-field_size 0 "
                 "--pid pid.log "
-                "-k gevent "
+                "-k flask_sockets.worker "
                 "--timeout 120 "
-                "faraday.app:app").format(**locals())
+                "app:app").format(**locals())
         print(Fore.GREEN + "Starting server with command: ")
         print(Fore.YELLOW + cmd)
         print(Style.RESET_ALL)

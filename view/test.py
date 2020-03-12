@@ -6,7 +6,6 @@
 # @Desc  :
 from flask import Blueprint, request
 
-import config
 from common.response import Response
 from service.qiniu_service import QiniuService
 

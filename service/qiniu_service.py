@@ -78,8 +78,6 @@ class QiniuService:
         if file_stat[0] is not None:
             delete_status = bucket.delete(bucket=bucket_name, key=file_name)
             log.info(f'delete file {file_name} from {bucket_name} with status {delete_status}')
-        else:
-            raise ServerException('文件不存在')
         if isinstance(delete_status, tuple) and delete_status[1].status_code != 200:
             return False
         return True
