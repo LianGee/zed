@@ -12,7 +12,6 @@ from model.db import clean_db_session
 from view.album import album_bp
 from view.article import article_bp
 from view.catalogue import catalogue_bp
-from view.game import game_bp
 from view.graph import graph_bp
 from view.socket import socket_bp
 from view.tag import tag_bp
@@ -36,7 +35,6 @@ app.register_blueprint(catalogue_bp, url_prefix='/catalogue')
 app.register_blueprint(album_bp, url_prefix='/album')
 app.register_blueprint(workspace_bp, url_prefix='/workspace')
 app.register_blueprint(weekly_bp, url_prefix='/weekly')
-app.register_blueprint(game_bp, url_prefix='/game')
 sockets.register_blueprint(socket_bp, url_prefix='/')
 
 
